@@ -12,7 +12,7 @@
 
 \section*{Outline}
 
-The green energy transition underscores the need for the discovery of materials. Density Functional Theory (DFT) has long served as a computational workhorse for materials science by using the electron density as the fundamental quantity. DFT scales computationally as \( O(N^3) \), where \( N \) is the number of electrons in the system. However, it treats the repulsive interactions between electrons using an approximate exchange-correlation functional, leading to variable results. A potential solution is the application of Green's functions in many-body perturbation theory (MBPT). Central to this is the Dyson equation:
+The green energy transition underscores the need for the discovery of materials. Density Functional Theory (DFT) has long served as a computational workhorse for materials science by using the electron density as the fundamental quantity. However, it treats the repulsive interactions between electrons using an approximate exchange-correlation functional, leading to variable results. A potential solution is the application of Green's functions in many-body perturbation theory (MBPT). Central is the Dyson equation
 
 \begin{equation}
 \begin{aligned}
@@ -39,25 +39,25 @@ The green energy transition underscores the need for the discovery of materials.
    a -- [fermion] c [blob] -- [fermion] d [blob] -- [fermion] b,
 };
 }
-+ \ldots
++ \ldots,
 \label{eq:dyson_feynman}
 \end{equation}
 
 
-In equation \ref{eq:dyson}, the Green's function for the fully interacting system \( G \) is related to the noninteracting Green's function \( G_0 \) through the self-energy \( \Sigma \). We can think of this in terms of the Feynman diagrams of equation \ref{eq:dyson_feynman}, where \( G_0 \) is represented by a single line and \( \Sigma \) by a blob. In the common \( GW \) approximation, it is assumed that the self-energy \( \Sigma \) takes the form \( iGW \), where \( W \) is the screened Coulomb interaction. Therefore, the Dyson equation represents a series expansion in the interaction strength \( W \), since it is used to make \( \Sigma \). This means that the \( GW \) approximation is accurate for systems where it is reasonable to perturbatively expand the Dyson equation in the Coulomb interaction. However, for strongly correlated systems, in which the majority of current materials science research lies, the interaction is large, so the \( GW \) approximation is not viable.
+where equation \ref{eq:dyson} relates the Green's function for the fully interacting system \( G \) to that pf the non interacting system \( G_0 \) through the self-energy \( \Sigma \). In terms of the Feynman diagrams of equation \ref{eq:dyson_feynman}, \( G_0 \) is represented by a single line and \( \Sigma \) by a blob. In the \( GW \) approximation, the self-energy \( \Sigma \) takes the form \( iGW \), where \( W \) is the screened Coulomb interaction. Therefore, the Dyson equation represents a series expansion in the interaction strength \( W \), since it is used to make \( \Sigma \); the \( GW \) approximation is accurate for systems where it is reasonable to perturbatively expand the Dyson equation in the Coulomb interaction. However, for strongly correlated systems, in which the majority of current materials science research lies, the interaction is large, so the \( GW \) approximation is often poor.
 
-There is also the Mori-Zwanzig (MZ) theory, which has been long known in statistical physics but has only recently been applied to Green's functions. We start with the differential form of the Lyapunov identity
+There is the Mori-Zwanzig (MZ) theory of statistical physics, which has recently been applied to Green's functions. We start with the differential form of the MZ equation,
 \begin{equation}
 \frac{d}{d t} \mathcal{P} e^{t \mathcal{L}} \mathcal{P} = \mathcal{P} e^{t \mathcal{L}} \mathcal{P} \mathcal{L} \mathcal{P} + \int_0^t \mathcal{P} e^{(t-s) \mathcal{L}} \mathcal{P} \mathcal{L} e^{s \mathcal{Q} \mathcal{L}} \mathcal{Q} \mathcal{L} \mathcal{P} \, ds , 
 \label{eq:mz}
 \end{equation}
-where \( \mathcal{U}(t, 0) = e^{t \mathcal{L}} \) is the time propagator of the system under investigation and \( \mathcal{P} \) is a projection operator. The advantage over ordinary MBPT is that via the projection operator, we can isolate the system of interest and treat the orthogonal complement \( \mathcal{Q} = \mathcal{I} - \mathcal{P} \) as a bath. Equation \ref{eq:mz} is general and it can be used to derive the equation of motion for a correlation function, such as the Green's function \( G(t) \), as
+where 
+$\mathcal{L}$ is the Liouville operator, \( \mathcal{U}(t, 0) = e^{t \mathcal{L}} \) is the time propagator, and \( \mathcal{P} \) is a projection operator. The projection operator is used to isolate the system of interest and the orthogonal complement \( \mathcal{Q} = \mathcal{I} - \mathcal{P} \) is treated as a bath. Equation \ref{eq:mz} can be used to derive the equation of motion for the Green's function \( G(t) \), as
 
 \begin{equation}
 \frac{d}{d t} G(t) = \Omega G(t) + \int_0^t \hat{\Sigma}(s) G(t-s) \, ds,
 \end{equation}
-where we have the frequency response \( \Omega \) and a memory kernel \( \hat{\Sigma}(s) \) that is analogous to the self-energy \( \Sigma \) in MBPT, but captures the past activity of the system.
-Recently, a diagrammatic theory analogous to the Feynman diagrams of MBPT has been introduced for the MZ framework, in the form of trees. The memory kernel \( \hat{\Sigma} \) can be expanded
+where \( \Omega \) is the frequency response and a \( \hat{\Sigma}(s) \) is the memory colonel  analogous to the self-energy \( \Sigma \) in MBPT. A diagrammatic theory analogous to Feynman diagrams has been introduced for the MZ framework, in the form of trees. The memory kernel \( \hat{\Sigma} \) can be expanded as
 \begin{equation}\label{bare_expansion_CMZE_sigma}
 \begin{aligned}
 \hat\Sigma
@@ -118,22 +118,25 @@ t\biggl[
 \end{aligned}
 \end{equation}
 
-Equation \ref{bare_expansion_CMZE_sigma} shows the advantage of the Feynman diagrams of MBPT, as the expansion is made in powers of the evolution time \( t \) rather than the interaction strength \( W \). 
+Equation \ref{bare_expansion_CMZE_sigma} shows the advantage over Feynman diagrams, as the expansion is made in powers of the evolution time \( t \) rather than the interaction strength \( W \). 
 
-Taking the Laplace transform of this equation gives something similar to the series expansion of the Dyson equation
+Taking the Laplace transform of this equation gives a result analogous to the series expansion of the Dyson equation \ref{eq:dyson}:
 
 \begin{equation}
    G(z)=S^{-1}(z) G(0)+S^{-1}(z) \hat{\Sigma}(z) S^{-1}(z) G(0)+S^{-1}(z) \hat{\Sigma}(z) S^{-1}(z) \hat{\Sigma}(z) S^{-1}(z) G(0)+\ldots,
 \end{equation}
-where \( S^{-1}(z)=(z I-\Omega)^{-1} \) and instead of the noninteracting Green's function \( G_0 \) we have the initial condition \( G(0) \).
+where \( S^{-1}(z)=(z I-\Omega)^{-1} \) and the initial condition $G(0)$ replaces the non-interacting Green's function \( G_0 \).
 
 \section*{Motivation and Intellectual Merit:}
-In my senior thesis, I implemented $G_0W_0$, which is an extension of the $GW$ approximation, for molecules. This has prepared me to think about Green's functions in MBPT, now in the condensed matter. In addition, I gave multiple talks on my research (Cate senior thesis symposium and the Cold Water Symposium) and I attended the BerkeleyGW conference, where I learned about the current state of the $GW$ community that I will be a part of in the future.
+In my senior thesis, I implemented $G_0W_0$, which is an extension of the $GW$ approximation, for molecules. This has prepared me to think about Green's functions in MBPT, now in condensed matter. In addition, I gave talks on my research (Caltech Senior Thesis and Goldwater Symposiums) and attended the BerkeleyGW conference, where I learned about the current state of the $GW$ community that I will be a part of in the future.
 
 \section*{Research Plan}
-The uniform electron gas is a paradigmatic system in condensed matter physics, as it provides a useful physical description of many metals. My first aim is my vacation project in Professor Joonho Lee's group. This will be to implement fully self-consistent $GW$ (scGW) for the system. In particular, we are interested in whether we corroborate the results reported where scGW computes only one quasi-particle peak in the frequency spectrum, while more accurate calculations predict the existence of an additional satellite peak. The second aim will be to do a similar thing with the Mori-Zwanzig framework. Then, I would apply this to more realistic condensed matter systems. During my project, I will be thinking about various digital techniques; I have a fine motor impairment resulting from my stroke, so this will be a great motivation to practice my handwriting and improve it to an extent where I can draw these diagrams very quickly and accurately. In addition, I will gain experience in how these can be done in the typesetting software LaTeX using the dedicated packages, which I do in this proposal.
+\textbf{Aim 1}: The uniform electron gas (UEG) is a paradigmatic system in condensed matter physics. As my rotation project with Prof. Lee, I will implement fully self-consistent $GW$ (scGW) for the UEG. I am interested in whether I can corroborate the result reported in the literature where scGW predicts only one quasi-particle peak in the frequency spectrum, while Quantum Monte Carlo (QMC) shows an additional satellite peak.\\
+\textbf{Aim 2}: Perform a similar investigation on the UEG in the Mori-Zwanzig framework. Assess improvement over $GW$.\\
+\textbf{Aim 3}: Apply the MZ framework to a realistic condensed matter system, such as the Hubbard model.\\
+\textbf{Aim 4}: During my project, I will be using various diagrammatic theories; I have a fine motor impairment resulting from a stroke, so this project will provide the motivation to improve my handwriting through practice. In addition, I will gain experience in how to typeset diagrams efficiently in LaTeX, as I do above.
 
 \section*{Broader Impacts}
-The proposed research develops a theoretical framework that will serve as an alternative to the $GW$ approximation, thereby advancing understanding of strongly correlated systems. It will lead to the development of new computational methodologies for the study of materials science, with potential applications in the design of new materials for energy storage and conversion. 
+The proposed research develops the MZ theoretical framework by proposing a computational implementation of it. This will serve as an alternative to the $GW$ approximation, enabling the investigation of strongly correlated systems for the design of materials with sustainability applications. 
 
 \end{document}
